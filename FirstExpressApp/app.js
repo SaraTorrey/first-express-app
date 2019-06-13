@@ -15,6 +15,10 @@ app.get( "/kitty", function ( req, res ) {
     res.send( "meow!" );
 } );
 
+app.get( "*", function ( req, res ) {
+    res.send( "Invalid Page!" );
+} );
+
 
 app.listen(3000, process.env.IP, function (  ) {
     console.log("Server has started.")
