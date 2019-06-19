@@ -1,11 +1,23 @@
-var express = require("express");
-var app = express();
-var bodyParser = require( "body-parser" );
+let express = require("express");
+let request = require( "request" );
+let app = express();
+let bodyParser = require( "body-parser" );
 
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use( express.static( "public" ) );
 app.set( "view engine", "ejs" );
+
+app.get( "/results", function ( req, res ) {
+    let query = req.query.search;
+    let url = "https://amdbapi.com/?s=" + query;
+    request( url, function ( error, response, body ) {
+        if ( !error && response.statusCode == 200 ) {
+            let data = JSON.parse( body )
+            res.render( "results", {data: data} );
+        }
+    } );
+} );
 
 let friends = ["Liz", "Mandy", "Pam", "Kim"];
 
