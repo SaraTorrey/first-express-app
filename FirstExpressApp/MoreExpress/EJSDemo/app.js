@@ -10,10 +10,10 @@ app.set( "view engine", "ejs" );
 
 app.get( "/results", function ( req, res ) {
     let query = req.query.search;
-    let url = "https://amdbapi.com/?s=" + query;
+    let url = "http://www.omdbapi.com/?apikey=[yourkey]&" + query;
     request( url, function ( error, response, body ) {
-        if ( !error && response.statusCode == 200 ) {
-            let data = JSON.parse( body )
+        if ( !error && response.statusCode === 200 ) {
+            let data = JSON.parse( body );
             res.render( "results", {data: data} );
         }
     } );
